@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Project coordinates and other configurations -->
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>com.example</groupId>
+    <artifactId>my-project</artifactId>
+    <version>1.0.0</version>
+  <!-- Add dependencies -->
+ <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+<!-- Add plugins and other configurations -->
+<build>
+    <plugins>
+        <!-- Maven Compiler Plugin -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+    			<source>11</source>
+   				 <target>11</target>
+			</configuration>
+        </plugin>
+        <!-- Maven Surefire Plugin -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M5</version>
+            <configuration>
+                <includes>
+                    <include>**/TestRunner.java</include>
+                </includes>
+            </configuration>
+        </plugin>
+         <plugin>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-maven-plugin</artifactId>
+            <version>7.15.0</version> <!-- Adjust version as needed -->
+            <executions>
+                <execution>
+                    <id>generate-report</id>
+                    <phase>post-integration-test</phase>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <reportsDirectory>${project.build.directory}/cucumber-reports</reportsDirectory>
+                        <reportTypes>json</reportTypes>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <!-- Add Maven Cucumber Reporting Plugin for converting JSON reports to HTML -->
+        <plugin>
+            <groupId>net.masterthought</groupId>
+            <artifactId>maven-cucumber-reporting</artifactId>
+            <version>5.5.0</version> <!-- Adjust version as needed -->
+            <executions>
+                <execution>
+                    <id>execution</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <projectName>Your Project Name</projectName>
+                        <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
+                        <jsonFiles>
+                            <param>**/*.json</param>
+                        </jsonFiles>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+<dependencies>
+    <!-- Cucumber dependencies -->
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-java</artifactId>
+        <version>7.15.0</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-core</artifactId>
+    <version>7.15.0</version> <!-- Adjust version as needed -->
+    <scope>test</scope>
+	</dependency>
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <version>7.15.0</version>
+        <scope>test</scope>
+    </dependency>
+    <!-- Selenium WebDriver dependency -->
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.18.1</version>
+    </dependency>
+    <dependency>
+    <groupId>net.masterthought</groupId>
+    <artifactId>cucumber-reporting</artifactId>
+    <version>5.5.0</version> <!-- Adjust version as needed -->
+</dependency>
+    <dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>5.1.1</version>
+</dependency>
+<!-- Extent Reports Cucumber Adapter -->
+  <!-- https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter -->
+<dependency>
+    <groupId>tech.grasshopper</groupId>
+    <artifactId>extentreports-cucumber7-adapter</artifactId>
+    <version>1.14.0</version>
+</dependency>
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.11.0</version>
+</dependency>
+
+</dependencies>
+
+</project>
